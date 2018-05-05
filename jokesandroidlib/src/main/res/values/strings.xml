@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">JokesAndroidLib</string>
+    <string name="tv_joke_dummy_text">Knock Knock! Who is there?</string>
+</resources>

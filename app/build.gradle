@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId "com.udacity.gradle.builditbigger"
-        minSdkVersion 16
+        minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -36,7 +36,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     endpointsServer project(path: ':backend', configuration: 'endpoints')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     implementation 'com.google.android.gms:play-services-ads:11.8.0'
     implementation 'com.google.api-client:google-api-client:1.23.0'
     implementation 'com.google.http-client:google-http-client-android:1.23.0'
@@ -46,4 +46,5 @@ dependencies {
     })
     testImplementation 'junit:junit:4.12'
     implementation project(':jokesJavaLib')
+    implementation project(':jokesandroidlib')
 }

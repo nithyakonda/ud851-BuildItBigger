@@ -20,3 +20,8 @@ allprojects {
         google()
     }
 }
+
+ext{
+    minSdkVersion = 16
+    supportLibraryVersion = "26.1.0"
+}
