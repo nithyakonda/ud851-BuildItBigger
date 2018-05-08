@@ -14,6 +14,8 @@ public class JokeSource {
     }
 
     public String getNewJoke() {
-        return "Knock Knock! Who is there?";
+        return "What do you call the soft tissue between a shark's teeth?\n" +
+                "\n" +
+                "A slow swimmer.";
     }
 }

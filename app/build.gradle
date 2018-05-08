@@ -41,9 +41,15 @@ dependencies {
     implementation 'com.google.api-client:google-api-client:1.23.0'
     implementation 'com.google.http-client:google-http-client-android:1.23.0'
     implementation 'com.google.code.findbugs:jsr305:3.0.1'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation 'com.android.support.test.espresso:espresso-idling-resource:' + rootProject.espressoVersion;
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:'+rootProject.espressoVersion
+    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
-    })
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
     testImplementation 'junit:junit:4.12'
     implementation project(':jokesandroidlib')
     implementation project(':backend')

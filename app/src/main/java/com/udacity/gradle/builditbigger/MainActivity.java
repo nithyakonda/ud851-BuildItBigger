@@ -3,6 +3,10 @@ package com.udacity.gradle.builditbigger;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +23,7 @@ import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity {
+    @Nullable private EndpointsIdlingResource mIdlingResource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Void... params) {
+            if(mIdlingResource != null) {
+                mIdlingResource.setIdleState(false);
+            }
             if(myApiService == null) {  // Only do this once
                 MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                         new AndroidJsonFactory(), null)
@@ -98,6 +106,18 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String jokeStr) {
             mCallback.done(jokeStr);
+            if (mIdlingResource != null) {
+                mIdlingResource.setIdleState(true);
+            }
         }
+    }
+
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new EndpointsIdlingResource();
+        }
+        return mIdlingResource;
     }
 }
