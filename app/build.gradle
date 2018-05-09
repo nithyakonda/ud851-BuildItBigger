@@ -72,4 +72,9 @@ dependencies {
     implementation project(':backend'), {
         exclude group: 'com.google.guava'
     }
+
+    task testApp {
+        dependsOn ':backend:appengineStart', ':app:connectedAndroidTest'
+        finalizedBy ':backend:appengineStop'
+    }
 }
