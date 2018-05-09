@@ -48,17 +48,19 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support:design:26.1.0'
     endpointsServer project(path: ':backend', configuration: 'endpoints')
     implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     implementation 'com.google.android.gms:play-services-ads:11.8.0'
     implementation 'com.google.api-client:google-api-client:1.23.0', {
-        exclude group:'com.google.guava'
+        exclude group: 'com.google.guava'
     }
     implementation 'com.google.http-client:google-http-client-android:1.23.0'
     implementation 'com.google.code.findbugs:jsr305:3.0.1'
     implementation 'com.android.support.test.espresso:espresso-idling-resource:' + rootProject.espressoVersion;
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:'+rootProject.espressoVersion
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:' + rootProject.espressoVersion
     androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-v4'
@@ -68,6 +70,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation project(':jokesandroidlib')
     implementation project(':backend'), {
-        exclude group:'com.google.guava'
+        exclude group: 'com.google.guava'
     }
 }
