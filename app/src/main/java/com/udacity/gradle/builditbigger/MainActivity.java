@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -25,10 +26,19 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
     @Nullable private EndpointsIdlingResource mIdlingResource;
 
+    private Button btnTellJoke;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        btnTellJoke = (Button) findViewById(R.id.btn_tell_joke);
+        btnTellJoke.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tellJoke();
+            }
+        });
     }
 
 
@@ -54,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void tellJoke(View view) {
+    public void tellJoke() {
         new EndpointsAsyncTask(new TellJokeCallback() {
             @Override
             public void done(String jokeStr) {
