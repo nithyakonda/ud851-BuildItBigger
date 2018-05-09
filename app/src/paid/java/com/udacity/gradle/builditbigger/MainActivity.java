@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -26,12 +28,16 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
     @Nullable private EndpointsIdlingResource mIdlingResource;
 
+    private TextView tvTextView;
     private Button btnTellJoke;
+    private ProgressBar pbLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tvTextView = (TextView) findViewById(R.id.instructions_text_view);
+
         btnTellJoke = (Button) findViewById(R.id.btn_tell_joke);
         btnTellJoke.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 tellJoke();
             }
         });
+
+        pbLoading = (ProgressBar) findViewById(R.id.pb_loading);
     }
 
 
@@ -73,6 +81,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }).execute();
+        startLoading();
+    }
+
+    private void startLoading() {
+        tvTextView.setVisibility(View.INVISIBLE);
+        btnTellJoke.setVisibility(View.INVISIBLE);
+        pbLoading.setVisibility(View.VISIBLE);
     }
 
     class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
@@ -107,8 +122,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             try {
+                Thread.sleep(2000);
                 return myApiService.tellJoke().execute().getData();
             } catch (IOException e) {
+                return e.getMessage();
+            } catch (InterruptedException e) {
                 return e.getMessage();
             }
         }
